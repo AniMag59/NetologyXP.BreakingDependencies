@@ -83,20 +83,67 @@ var itemTypes =
             "Texas" : 0,
         },
     };
-
+function getStates() {
+    return {
+        "Alabama" : {
+            baseTax : 0.04,
+            Groceries : 0,
+            PrescriptionDrug : "",
+            PreparedFood : 0
+        },
+        "Alaska" : {
+            baseTax : 0,
+            Groceries : 0,
+            PrescriptionDrug : 0,
+            PreparedFood : 0
+        },
+        "Arizona" : {
+            baseTax : 0.056,
+            Groceries : "",
+            PrescriptionDrug : "",
+            PreparedFood : 0
+        },
+        "Arkansas" : {
+            baseTax : 0.065,
+            Groceries : 0.015,
+            PrescriptionDrug : "",
+            PreparedFood : 0
+        },
+        "California" : {
+            baseTax : 0.075,
+            Groceries : "",
+            PrescriptionDrug : "",
+            PreparedFood : 0
+        },
+        "Colorado" : {
+            baseTax : 0.029,
+            Groceries : "",
+            PrescriptionDrug : "",
+            PreparedFood : 0
+        },
+        "Connecticut" : {
+            baseTax : 0.0635,
+            Groceries : "",
+            PrescriptionDrug : "",
+            PreparedFood : 0
+        },
+        "Tennessee" : {
+            baseTax : 0.07,
+            Groceries : 0.05,
+            PrescriptionDrug : 0,
+            PreparedFood : 0
+        },
+        "Texas" : {
+            baseTax : 0.0625,
+            Groceries : "",
+            PrescriptionDrug : "",
+            PreparedFood : 0
+        }
+    }
+}
 function baseTax(state) {
-    var taxes = {
-        "Alabama" : 0.04,
-        "Alaska" : 0,
-        "Arizona" : 0.056,
-        "Arkansas" : 0.065,
-        "California" : 0.075,
-        "Colorado" : 0.029,
-        "Connecticut" : 0.0635,
-        "Tennessee" : 0.07,
-        "Texas" : 0.0625,
-    };
-    return taxes[state];
+    var states = getStates();
+    return states[state].baseTax;
 }
 
 function calcTax(state, itemType) {
