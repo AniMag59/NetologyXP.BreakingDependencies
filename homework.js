@@ -113,9 +113,17 @@ class TaxCalculator {
     }
 }
 
+function calculatePriceFor(state, item) {
+    if (items[item].type === "PreparedFood") {
+        return (items[item].price * (1 + base(state)));
+    }
+    else{
+        return (items[item].price * (1 + calc(state, items[item].type)));
+    }
+}
 //############################
 //Production - код:
-production();
+//production();
 
 //############################
 //Тесты:
@@ -127,7 +135,7 @@ var tests = [
     () => assertEquals(2 * (1 + 0.0635), calculatePriceFor("Connecticut", "hamburger")),
 ];
 //Раскомментируйте следующую строчку для запуска тестов:
-//runTests (tests);
+runTests (tests);
 
 //############################
 //Код ниже этой строчки не надо менять для выполнения домашней работы
