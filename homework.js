@@ -56,7 +56,9 @@ var itemTypes =
             "Arkansas" : 0.015,
             "California" : "",
             "Colorado" : "",
-            "Connecticut" : ""
+            "Connecticut" : "",
+            "Tennessee" : 0.05,
+            "Texas" : "",
         },
         "PrescriptionDrug": {
             "Alabama" : "",
@@ -65,7 +67,9 @@ var itemTypes =
             "Arkansas" : "",
             "California" : "",
             "Colorado" : "",
-            "Connecticut" : ""
+            "Connecticut" : "",
+            "Tennessee" : 0,
+            "Texas" : "",
         },
         "PreparedFood": {
             "Alabama" : 0,
@@ -74,7 +78,9 @@ var itemTypes =
             "Arkansas" : 0,
             "California" : 0,
             "Colorado" : 0,
-            "Connecticut" : 0
+            "Connecticut" : 0,
+            "Tennessee" : 0,
+            "Texas" : 0,
         },
     };
 
@@ -86,7 +92,9 @@ function baseTax(state) {
         "Arkansas" : 0.065,
         "California" : 0.075,
         "Colorado" : 0.029,
-        "Connecticut" : 0.0635
+        "Connecticut" : 0.0635,
+        "Tennessee" : 0.07,
+        "Texas" : 0.0625,
     };
     return taxes[state];
 }
@@ -113,8 +121,6 @@ class TaxCalculator {
     }
 }
 
-
-
 function calculatePriceFor(state, item) {
     return (items[item].price * (1 + calcTax(state, items[item].type)));
 }
@@ -130,6 +136,8 @@ var tests = [
     () => assertEquals(6.7 * (1 + 0.0), calculatePriceFor("Alaska", "amoxicillin")),
     () => assertEquals(6.7 * (1 + 0.0), calculatePriceFor("California", "amoxicillin")),
     () => assertEquals(2 * (1 + 0.0635), calculatePriceFor("Connecticut", "hamburger")),
+    () => assertEquals(5.5 * (1 + 0.12), calculatePriceFor("Tennessee", "milk")),
+    () => assertEquals(0.2 * (1 + 0.0), calculatePriceFor("Texas", "aspirin")),
 ];
 //Раскомментируйте следующую строчку для запуска тестов:
 runTests (tests);
