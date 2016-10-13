@@ -78,7 +78,7 @@ var itemTypes =
         },
     };
 
-function base(state) {
+function baseTax(state) {
     var taxes = {
         "Alabama" : 0.04,
         "Alaska" : 0,
@@ -91,13 +91,11 @@ function base(state) {
     return taxes[state];
 }
 
-function calc(state, itemType) {
-
-    var itemTypeTaxModifier = itemTypes[itemType];
-    if (itemTypeTaxModifier[state] === "") {
+function calcTax(state, itemType) {
+    if (itemTypes[itemType][state] === "") {
         return 0;
     }
-    return base(state) + itemTypeTaxModifier[state];
+    return baseTax(state) + itemTypes[itemType][state];
 }
 
 class TaxCalculator {
@@ -118,7 +116,7 @@ class TaxCalculator {
 
 
 function calculatePriceFor(state, item) {
-    return (items[item].price * (1 + calc(state, items[item].type)));
+    return (items[item].price * (1 + calcTax(state, items[item].type)));
 }
 //############################
 //Production - код:
