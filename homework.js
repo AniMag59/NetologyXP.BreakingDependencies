@@ -36,55 +36,22 @@
 //############################
 // Этот код можно менять как угодно
 
-var items = {
-    "milk": {price: 5.5, type: "Groceries"},
-    "eggs": {price: 3.0, type: "Groceries"},
-    "coca-cola": {price: 0.4, type: "Groceries"},
-    "amoxicillin": {price: 6.7, type: "Groceries"},
-    "aspirin": {price: 0.2, type: "PrescriptionDrug"},
-    "marijuana": {price: 1.4, type: "PrescriptionDrug"},
-    "hamburger": {price: 2, type: "PreparedFood"},
-    "ceasar salad": {price: 4.2, type: "PreparedFood"},
-};
-
-var itemTypes =
-    {
-        "Groceries": {
-            "Alabama" : 0,
-            "Alaska" : 0,
-            "Arizona" : "",
-            "Arkansas" : 0.015,
-            "California" : "",
-            "Colorado" : "",
-            "Connecticut" : "",
-            "Tennessee" : 0.05,
-            "Texas" : "",
-        },
-        "PrescriptionDrug": {
-            "Alabama" : "",
-            "Alaska" : 0,
-            "Arizona" : "",
-            "Arkansas" : "",
-            "California" : "",
-            "Colorado" : "",
-            "Connecticut" : "",
-            "Tennessee" : 0,
-            "Texas" : "",
-        },
-        "PreparedFood": {
-            "Alabama" : 0,
-            "Alaska" : 0,
-            "Arizona" : 0,
-            "Arkansas" : 0,
-            "California" : 0,
-            "Colorado" : 0,
-            "Connecticut" : 0,
-            "Tennessee" : 0,
-            "Texas" : 0,
-        },
+function getItem(item) {
+    var items = {
+        "milk": {price: 5.5, type: "Groceries"},
+        "eggs": {price: 3.0, type: "Groceries"},
+        "coca-cola": {price: 0.4, type: "Groceries"},
+        "amoxicillin": {price: 6.7, type: "Groceries"},
+        "aspirin": {price: 0.2, type: "PrescriptionDrug"},
+        "marijuana": {price: 1.4, type: "PrescriptionDrug"},
+        "hamburger": {price: 2, type: "PreparedFood"},
+        "ceasar salad": {price: 4.2, type: "PreparedFood"},
     };
-function getStates() {
-    return {
+    return items[item];
+}
+
+function getState(state) {
+    var states = {
         "Alabama" : {
             baseTax : 0.04,
             Groceries : 0,
@@ -139,18 +106,16 @@ function getStates() {
             PrescriptionDrug : "",
             PreparedFood : 0
         }
-    }
-}
-function baseTax(state) {
-    var states = getStates();
-    return states[state].baseTax;
+    };
+    return states[state];
 }
 
 function calcTax(state, itemType) {
-    if (itemTypes[itemType][state] === "") {
+    var state = getState(state);
+    if (state[itemType] === "") {
         return 0;
     }
-    return baseTax(state) + itemTypes[itemType][state];
+    return state.baseTax + state[itemType];
 }
 
 class TaxCalculator {
@@ -169,7 +134,8 @@ class TaxCalculator {
 }
 
 function calculatePriceFor(state, item) {
-    return (items[item].price * (1 + calcTax(state, items[item].type)));
+    var item = getItem(item);
+    return (item.price * (1 + calcTax(state, item.type)));
 }
 //############################
 //Production - код:
