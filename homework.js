@@ -111,7 +111,6 @@ function getState(state) {
 }
 
 function calcTax(state, itemType) {
-    var state = getState(state);
     if (state[itemType] === "") {
         return 0;
     }
@@ -135,6 +134,7 @@ class TaxCalculator {
 
 function calculatePriceFor(state, item) {
     var item = getItem(item);
+    var state = getState(state);
     return (item.price * (1 + calcTax(state, item.type)));
 }
 //############################
